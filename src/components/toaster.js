@@ -5,7 +5,7 @@ const Toaster = (props) => {
   const {show, text} = props;
 
   return (
-    <div id="toaster" className={show ? "show" : ""} {...props}>
+    <div id="toaster" className={show ? "show" : ""}>
       <p className="toaster-text">{text}</p>
     </div>
   );

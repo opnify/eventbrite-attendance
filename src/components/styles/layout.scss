@@ -599,12 +599,10 @@ pre {
 .frame-bg{
   display: table;
   margin: 0 auto;
-  width: 1046px;
-  height: 636px;
-  background-image: url($frame-bg);
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: 146px 60px;
+  width: 964px;
+  height: 685px;
+  background: url(../../images/bg-totopolis.svg) no-repeat center;
+  background-size: contain;
 }
 
 .char{
