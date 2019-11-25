@@ -5,7 +5,7 @@
   -webkit-box-pack: justify;
   justify-content: space-between;
   width: 100%;
-  background-color: rgb(214, 0, 28);
+  background-color: #383d42;
   max-width: 560px;
   position: fixed;
   top: 0px;
@@ -16,6 +16,9 @@
   border-radius: 8px;
   margin: 0px auto;
   transition: transform 0.3s ease-in-out 0s;
+  &[data-bg="error"]{
+    background-color: rgb(214, 0, 28);;
+  }
   .toaster-text {
     position: relative;
     font-weight: 400;
