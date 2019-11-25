@@ -23,8 +23,8 @@ const toggleNameColor = (green) => {
 };
 
 const IndexPage = () => {
-  const [name, setName] = useState({ text: 'Scan here!', color: toggleNameColor(false) });
-  const [showWarning, setShowWarning] = useState({ text: '', show: false });
+  const [name, setName] = useState({ text: 'Scan the QR here!', color: toggleNameColor(false) });
+  const [showWarning, setShowWarning] = useState({ text: '', show: false, type: 'warning' });
   const videoElem = useRef(null);
   const warningTimeout = useRef(undefined);
   const nameTimeout = useRef(undefined);
@@ -88,10 +88,10 @@ const IndexPage = () => {
           updateData(data, records);
           setName({text: `Welcome, ${firstName} ${lastName}`, color: toggleNameColor(true)});
         } else if (attendanceTime !== "") {
-          setShowWarning({text: "You are already registered!", show: true});
+          setShowWarning({text: "You are already registered!", show: true, type: 'warning'});
         }
       } else {
-        setShowWarning({text: "QR Code not valid", show: true});
+        setShowWarning({text: "QR Code not valid", show: true, type: 'error'});
       };
     };
 
@@ -132,7 +132,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <Toaster show={showWarning.show} text={showWarning.text}/>
+      <Toaster show={showWarning.show} text={showWarning.text} type={showWarning.type}/>
 
       <h4 className="head-text" style={{color: name.color}}>{name.text}</h4>
       <div className="frame-bg">

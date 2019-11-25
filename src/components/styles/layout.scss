@@ -1,16 +1,15 @@
 @import 'images';
 
-html {
-  overflow: hidden !important;
-}
-
 body {
   color: #30343A;
   margin: 0;
   font-family: sans-serif;
+  background-color: #e9e5e4;
   background-image: url($body-background);
   background-size: 100% auto;
   background-repeat: no-repeat;
+  min-width: 964px;
+  overflow: hidden;
 }
 
 article, aside, details, figcaption, figure, footer, header, main, menu, nav, section, summary {
@@ -592,23 +591,23 @@ pre {
   position: relative;
   width: 450px;
   height: 450px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 122px;
 }
 
 .frame-bg{
   display: table;
-  margin: 0 auto;
+  margin: 41px 0 0 22%;
   width: 964px;
   height: 685px;
-  background: url(../../images/bg-totopolis.svg) no-repeat center;
+  background: url($frame-background) no-repeat center;
   background-size: contain;
+  background-position: 0 67px;
 }
 
 .char{
   position: absolute;
   &.toped{
-    background-image: url($image-toped);
+    background-image: url($char-toped);
     background-repeat: no-repeat;
     background-size: 100% auto;
     background-position: center;
@@ -618,7 +617,7 @@ pre {
     bottom: -47px;
   }
   &.dot{
-    background-image: url($image-dot);
+    background-image: url($char-dot);
     background-repeat: no-repeat;
     background-size: 100% auto;
     background-position: center;
