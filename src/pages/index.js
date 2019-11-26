@@ -9,6 +9,9 @@ import Toaster from "../components/toaster";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
+import audioSuccess from "../components/sounds/Beep_success.mp3";
+import audioWarning from "../components/sounds/Beep_warning.mp3";
+
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyilg571Q6cqJbmT1URr9d2S4FjCFM51_xY4EWR4URQE0p9JWw/exec";
@@ -21,6 +24,17 @@ const toggleNameColor = (green) => {
     return "#30343A";
   }
 };
+
+const soundNotification = (sound) => {
+  let success = new Audio(audioSuccess);
+  let warning = new Audio(audioWarning);
+
+  if (sound) {
+    success.play();
+  } else {
+    warning.play();
+  }
+}
 
 const IndexPage = () => {
   const [name, setName] = useState({ text: 'Scan the QR here!', color: toggleNameColor(false) });
@@ -53,11 +67,11 @@ const IndexPage = () => {
     // Add initial data to local storage when dom loaded
     localStorage.clear();
     if (!localStorage.getItem('users')) {
-      console.log('Fetch data for the first time');
       fetch(`${SCRIPT_URL}?action=read`)
         .then(resp => resp.json())
         .then(json => {
           localStorage.setItem('users', JSON.stringify(json.records));
+          scanner.start();
         })
         .catch(error => {
           localStorage.setItem('users', '[]');
@@ -87,6 +101,7 @@ const IndexPage = () => {
         if (records.length > 0 && data === qrCode && attendanceTime === "") {
           updateData(data, records);
           setName({text: `Welcome, ${firstName} ${lastName}`, color: toggleNameColor(true)});
+          soundNotification(true);
         } else if (attendanceTime !== "") {
           setShowWarning({text: "You are already registered!", show: true, type: 'warning'});
         }
@@ -124,9 +139,8 @@ const IndexPage = () => {
     }
 
     // QR Scanner init
-    const scanner = new QrScanner(videoElem.current, debounce(getData, 2500, true));
+    const scanner = new QrScanner(videoElem.current, debounce(getData, 2000, true));
 
-    scanner.start();
   }, []);
 
   return (
