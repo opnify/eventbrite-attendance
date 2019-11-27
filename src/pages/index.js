@@ -8,6 +8,7 @@ import timestamp from '../helpers/timestamp';
 import Toaster from "../components/toaster";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import FrameBG from "../images/bg-frame.svg";
 
 import audioSuccess from "../components/sounds/Beep_success.mp3";
 import audioWarning from "../components/sounds/Beep_warning.mp3";
@@ -15,7 +16,6 @@ import audioWarning from "../components/sounds/Beep_warning.mp3";
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyilg571Q6cqJbmT1URr9d2S4FjCFM51_xY4EWR4URQE0p9JWw/exec";
-
 // Toggle color name
 const toggleNameColor = (green) => {
   if (green) {
@@ -49,7 +49,7 @@ const IndexPage = () => {
       warningTimeout.current = setTimeout(() => {
         setShowWarning({...showWarning, show: false});
 
-        setName({text: 'Scan here!', color: toggleNameColor(false)});
+        setName({text: 'Scan the QR here!', color: toggleNameColor(false)});
       }, 3000);
     }
   }, [showWarning]);
@@ -58,7 +58,7 @@ const IndexPage = () => {
     if (name.text !== 'Scan here!') {
       clearTimeout(nameTimeout.current);
       nameTimeout.current = setTimeout(() => {
-        setName({text: 'Scan here!', color: toggleNameColor(false)});
+        setName({text: 'Scan the QR here!', color: toggleNameColor(false)});
       }, 3000);
     }
   }, [name]);
@@ -91,7 +91,6 @@ const IndexPage = () => {
     // Check code validation
     const checkCode = (data, records) => {
       let qrData = records.find(record => record['Order #'].toString().includes(data));
-
       if (qrData !== undefined) {
         const qrCode = qrData['Order #'].toString();
         const firstName = qrData['First Name'];
@@ -147,15 +146,17 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Home" />
       <Toaster show={showWarning.show} text={showWarning.text} type={showWarning.type}/>
-
-      <h4 className="head-text" style={{color: name.color}}>{name.text}</h4>
-      <div className="frame-bg">
-        <div className="frame-video">
-          <div className="video-wrapper">
-            <video id="qr-video" muted ref={videoElem}></video>
+      <div className="home-wrapper">
+        <h4 className="head-text" style={{color: name.color}}>{name.text}</h4>
+        <div className="frame-bg">
+          <div className="frame-video">
+            <img className="bg-video" src={FrameBG} alt="Frame Background" />
+            <div className="video-wrapper">
+              <video id="qr-video" muted ref={videoElem}></video>
+            </div>
+            <div className="char toped"></div>
+            <div className="char dot"></div>
           </div>
-          <div className="char toped"></div>
-          <div className="char dot"></div>
         </div>
       </div>
     </Layout>

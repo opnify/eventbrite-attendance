@@ -4,7 +4,7 @@
   align-items: center;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  width: 100%;
+  width: calc(100% - 16px);
   background-color: #383d42;
   max-width: 560px;
   position: fixed;
@@ -16,6 +16,11 @@
   border-radius: 8px;
   margin: 0px auto;
   transition: transform 0.3s ease-in-out 0s;
+  @media(max-width: 1024px) {
+    top: auto;
+    bottom: 0;
+    transform: translate(-50%, 100%);
+  }
   &[data-bg="error"]{
     background-color: rgb(214, 0, 28);;
   }
@@ -30,5 +35,8 @@
   }
   &.show{
     transform: translate(-50%, 30px);
+    @media(max-width: 1024px) {
+      transform: translate(-50%, -30%);
+    }
   }
 }
